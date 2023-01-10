@@ -264,6 +264,17 @@ body {
     }
 }
 
+.memberFull {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    & h2 {
+        text-decoration: underline #f76c6c;
+    }
+    & p {
+        font-family: "Roboto", sans-serif;
+    }
+}
 .memberEmpty {
     display: flex;
     flex-direction: column;
