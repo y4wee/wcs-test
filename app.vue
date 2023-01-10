@@ -108,7 +108,7 @@ onMounted(() => {
                         type="text"
                         placeholder="Qualidos"
                         minlength="1"
-                        maxlength="14"
+                        maxlength="30"
                         v-model="argonauteNew.description"
                     />
                     <button
@@ -136,7 +136,7 @@ onMounted(() => {
             </section>
             <!-- Member list -->
             <section class="memberList" v-else>
-                <h2>Membres de l'équipage</h2>
+                <h2 class="memberListTitle">Membres de l'équipage</h2>
 
                 <div class="memberListGrid">
                     <div
@@ -277,7 +277,7 @@ body {
     align-items: center;
     width: 100%;
     margin: 50px 0;
-    & h2 {
+    &Title {
         text-decoration: underline #f76c6c;
         margin-bottom: 50px;
     }
@@ -307,7 +307,13 @@ body {
         position: absolute;
         width: 250px;
     }
+    &Name {
+        margin: 0 0 10px 0;
+    }
     &Description {
+        max-width: 180px;
+        margin: 0;
+        text-align: center;
         color: #f76c6c;
     }
     &Remove {
