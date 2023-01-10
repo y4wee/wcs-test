@@ -251,6 +251,9 @@ body {
         & input {
             margin-bottom: 20px;
         }
+        & label {
+            font-weight: bold;
+        }
     }
     &Button {
         font-family: "Norse", sans-serif;
