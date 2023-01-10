@@ -4,7 +4,10 @@ import { ref, set, onValue } from "firebase/database";
 const { $database } = useNuxtApp();
 
 //liste des argonautes
-const argonautesData = reactive({});
+const argonautesData = reactive({
+    data: {},
+    number: -1,
+});
 //Detail du nouvel argonaute
 const argonauteNew = reactive({
     name: "",
@@ -40,7 +43,8 @@ onMounted(() => {
     // recuperation de la liste des argonautes par firebase
     const argonautesRef = ref($database, "/argonautes");
     onValue(argonautesRef, (snapshot) => {
-        argonautesData.value = snapshot.val();
+        argonautesData.data = snapshot.val();
+        argonautesData.number = Object.values(snapshot.val()).length;
     });
 });
 </script>
@@ -60,10 +64,7 @@ onMounted(() => {
         <!-- Main section -->
         <main>
             <!-- New member form -->
-            <section
-                class="memberControl"
-                v-if="Object.values(argonautesData.value).length < 50"
-            >
+            <section class="memberControl" v-if="argonautesData.number < 50">
                 <h2>Ajouter un(e) Argonaute</h2>
                 <form class="new-member-form">
                     <label for="name">Nom de l&apos;Argonaute</label>
@@ -99,10 +100,7 @@ onMounted(() => {
             </section>
 
             <!-- member list empty -->
-            <section
-                class="memberEmpty"
-                v-if="Object.values(argonautesData.value).length === 0"
-            >
+            <section class="memberEmpty" v-if="argonautesData.number === 0">
                 <h2>L'équipage est vide...</h2>
                 <p>Il faudrait penser à recruter des Argonautes ;)</p>
             </section>
@@ -110,7 +108,7 @@ onMounted(() => {
             <section class="memberList" v-else>
                 <h2>Membres de l'équipage</h2>
 
-                <div v-for="argo in argonautesData.value" :key="argo">
+                <div v-for="argo in argonautesData.data" :key="argo">
                     <h1>
                         {{ argo.name }}
                     </h1>
@@ -129,6 +127,16 @@ onMounted(() => {
 
 <style lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@font-face {
+    font-family: Norse;
+    src: url("~/assets/font/Norse.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Norse;
+    font-weight: bold;
+    src: url("~/assets/font/Norsebold.otf") format("opentype");
+}
 
 body {
     margin: 0;
@@ -152,6 +160,8 @@ header img {
 
 header h1 {
     font-size: 2.5em;
+    font-family: "Norse", sans-serif;
+    font-weight: bold;
 }
 
 h1,
